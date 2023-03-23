@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block title %}
-  Article #{{article_id}}
+  Article #{{article_id}}: {{ article.title }}
 {% endblock title %}
 
 {% block body %}
@@ -9,4 +9,9 @@
     <a href='{{url_for("articles_app.list")}}'>Back to articles list</a>
   </div>
   <h1>{{article_title}}</h1>
+  <div>
+    <p>{{ article.body }}</p>
+    <div>Published {{ article.dt_created }}</div>
+    <div>by {{ article.author.user.username }}</div>
+  </div>
 {% endblock body %}
