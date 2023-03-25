@@ -9,6 +9,14 @@
     <a href='{{url_for("articles_app.list")}}'>Back to articles list</a>
   </div>
   <h1>{{article_title}}</h1>
+  {% if article.tags %}
+    <div>Tags:</div>
+    <ul>
+      {% for tag in article.tags %}
+        <li>{{ tag.name }}</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
   <div>
     <p>{{ article.body }}</p>
     <div>Published {{ article.dt_created }}</div>
