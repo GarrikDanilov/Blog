@@ -1,4 +1,4 @@
-from flask_rest_jsonapi_next import ResourceDetail, ResourceList
+from flask_combo_jsonapi import ResourceDetail, ResourceList
 from blog.schemas import TagSchema
 from blog.models.database import db
 from blog.models import Tag

@@ -10,4 +10,3 @@ class TagSchema(Schema):
         self_view = "tag_detail"
         self_view_kwargs = {"id": "<id>"}
         self_view_many = "tag_list"
-        
