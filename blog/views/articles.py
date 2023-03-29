@@ -3,11 +3,14 @@ from flask import Blueprint, render_template, request, current_app, redirect, ur
 from flask_login import login_required, current_user
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import joinedload
+import os
 from werkzeug.exceptions import NotFound
 from blog.models.database import db
 from blog.models import Author, Article, Tag
 from blog.forms.article import CreateArticleForm
 
+
+API_URL=os.environ.get('API_URL')
 
 articles_app = Blueprint('articles_app', __name__)
 
@@ -15,7 +18,7 @@ articles_app = Blueprint('articles_app', __name__)
 @articles_app.route('/', endpoint='list')
 def articles_list():
     articles = Article.query.all()
-    count_articles = requests.get('http://0.0.0.0:5000/api/articles/event_get_count/').json()
+    count_articles = requests.get(f'{API_URL}/api/articles/event_get_count/').json()
     return render_template('articles/list.html', articles=articles, count_articles=count_articles['count'],)
 
     

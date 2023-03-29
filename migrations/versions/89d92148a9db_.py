@@ -1,8 +1,8 @@
-"""update models
+"""empty message
 
-Revision ID: ee91e6d82923
-Revises: 04a320f43591
-Create Date: 2023-03-25 12:45:58.121049
+Revision ID: 89d92148a9db
+Revises: 
+Create Date: 2023-03-30 01:01:53.552207
 
 """
 from alembic import op
@@ -10,8 +10,8 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'ee91e6d82923'
-down_revision = '04a320f43591'
+revision = '89d92148a9db'
+down_revision = None
 branch_labels = None
 depends_on = None
 
@@ -21,7 +21,7 @@ def upgrade():
     op.create_table('tag',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=32), server_default='', nullable=False),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_tag'))
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('user',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -29,17 +29,17 @@ def upgrade():
     sa.Column('first_name', sa.String(length=120), server_default='', nullable=False),
     sa.Column('last_name', sa.String(length=120), server_default='', nullable=False),
     sa.Column('email', sa.String(length=255), server_default='', nullable=False),
-    sa.Column('is_staff', sa.Boolean(), nullable=False),
+    sa.Column('is_staff', sa.Boolean(name='is_stuff'), nullable=False),
     sa.Column('_password', sa.LargeBinary(), nullable=True),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_user')),
-    sa.UniqueConstraint('email', name=op.f('uq_user_email')),
-    sa.UniqueConstraint('username', name=op.f('uq_user_username'))
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('author',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['user_id'], ['user.id'], name=op.f('fk_author_user_id_user')),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_author'))
+    sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('article',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -48,14 +48,14 @@ def upgrade():
     sa.Column('body', sa.Text(), server_default='', nullable=False),
     sa.Column('dt_created', sa.DateTime(), server_default=sa.text('(CURRENT_TIMESTAMP)'), nullable=True),
     sa.Column('dt_updated', sa.DateTime(), nullable=True),
-    sa.ForeignKeyConstraint(['author_id'], ['author.id'], name=op.f('fk_article_author_id_author')),
-    sa.PrimaryKeyConstraint('id', name=op.f('pk_article'))
+    sa.ForeignKeyConstraint(['author_id'], ['author.id'], ),
+    sa.PrimaryKeyConstraint('id')
     )
     op.create_table('article_tag_association',
     sa.Column('article_id', sa.Integer(), nullable=False),
     sa.Column('tag_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['article_id'], ['article.id'], name=op.f('fk_article_tag_association_article_id_article')),
-    sa.ForeignKeyConstraint(['tag_id'], ['tag.id'], name=op.f('fk_article_tag_association_tag_id_tag'))
+    sa.ForeignKeyConstraint(['article_id'], ['article.id'], ),
+    sa.ForeignKeyConstraint(['tag_id'], ['tag.id'], )
     )
     # ### end Alembic commands ###
 
