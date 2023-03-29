@@ -11,7 +11,6 @@ class AuthorDetailEvents(EventsResource):
 
 
 class AuthorList(ResourceList):
-    events = AuthorDetailEvents
     schema = AuthorSchema
     data_layer = {
         "session": db.session,
@@ -20,6 +19,7 @@ class AuthorList(ResourceList):
 
 
 class AuthorDetail(ResourceDetail):
+    events = AuthorDetailEvents
     schema = AuthorSchema
     data_layer = {
         "session": db.session,

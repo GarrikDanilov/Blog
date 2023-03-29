@@ -7,7 +7,7 @@ from blog.permissions.article import ArticlePermission
 
 
 class ArticleListEvents(EventsResource):
-    def event_get_count(self):
+    def event_get_count(self, *args, **kwargs):
         return {"count": Article.query.count()}
 
 
@@ -17,7 +17,6 @@ class ArticleList(ResourceList):
     data_layer = {
         "session": db.session,
         "model": Article,
-        "permission_patch": [ArticlePermission],
     }
 
 
@@ -26,4 +25,5 @@ class ArticleDetail(ResourceDetail):
     data_layer = {
         "session": db.session,
         "model": Article,
+        "permission_patch": [ArticlePermission],
     }
